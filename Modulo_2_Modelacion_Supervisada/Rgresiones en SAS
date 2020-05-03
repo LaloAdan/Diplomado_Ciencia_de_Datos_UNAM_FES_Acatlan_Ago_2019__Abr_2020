@@ -1,0 +1,35 @@
+
+
+Regresión Lineal simple
+
+Regresión Logistica
+
+
+Regresion lars
+Least Angle regression
+estimas las betas castigando el angulo
+
+
+
+Lasso (L1)
+Castiga mediante valor absoluto
+
+
+Ridge (L2)
+Penaliza la pendiente por medio
+https://blogs.sas.com/content/iml/2013/03/20/compute-ridge-regression.html
+
+
+Elstic 
+Genralizaciòn de Ridge, lasso y regresión lineal  
+
+
+
+
+
+
+
+
+
+
+

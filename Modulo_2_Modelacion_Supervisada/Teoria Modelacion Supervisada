@@ -1,0 +1,498 @@
+El futuro pròximo se comporta como el pasado reciente
+
+/********************************************************************************************************************/
+
+Sesiòn 1. 5 de octubre
+
+Introducciòn
+Se utizarà SAS y python
+
+Hints:
+
+	*Hay que encontrar uso e interpretaciòn.
+
+	*Hay que aprender a comunicarse
+
+
+
+
+1. Mètodologìa de modelaciòn supervisada y mètricas de ajuste
+¿Còmo podemos decir que nuestro modelo es bueno?
+
+¿Por que modelaciòn supervisada?
+¿Què se parece màs a un cuervo un pato o un pingûino?
+Depende de las variables que tengas
+
+Regresiòn cuando es continua. Ejemplo raiting de la tv. como las variables se ponderan hacia el score
+Clasfificaciòn cuando es discreta. Generalmente son de tipo binarias. Aquì el error es màs alto.
+
+Mètodologia
+ỹ = f(X)
+
+ỹ: es estimado. Es el modelo. Variable objetivo
+X: es un vector. Son los datos
+
+Hay que identificar de que tipo es el modelo
+La comunicaciòn es fundamental del cientifico de datos
+
+Se puede hacer meduabte validacion cruzada (Cross Validation). La validaciòn ajustada no evita el sobre-ajuste.
+
+Variable objetivo discreta tambièn se le llama clase o multiclase.
+
+Sobreajuste
+
+
+Mètricas de ajuste
+Obj: ¿A cuales si les atinò el modelo y a cuals no? (Estimò)
+
+Ejemplo:
+De 100 registros a 80 les atino. Pero son los mismos que trabajò. Entonces no sirve
+
+
+Matriz de confusiòn  ladeada
+
+
+VP -> Verdaderos Positivos
+VN -> Verdaderos Negativos
+FP -> Falsos Positivos
+FN -> Falsos Negativos
+
+
+		y	y
+		1	0
+ỹ	1	VP	FP
+ỹ	0	FN	VN
+
+
+
+Para la binaria la roc(Es una area) y la accuracy (exactitud)
+
+Para la regresiòn lo veremos desde el error
+MAe (Error medio absoluto) = 
+
+(1/N) sum(abs(ỹ -y))
+
+En promedio cuanto me estoy alejando del valor real. Tambien se conoce como predich output
+
+
+
+-------------------------------------------------------------------------------------------------------------
+
+Sesiòn 2 10 de octubre 2019
+
+
+Una regresiòn lineal es un calculo de una funciòn que se intenta ajustar lo màs posible a la mayorìa de valores una variable.
+El objetivo es crear la funciòn minimizando el error hasta donde sea posible.
+
+Existen dos tipos:
+
+************************************************Regresiòn Lineal************************************************
+
+
+La regresiòn lineal simple es para cuando la variable objetivo es continua, mientras que las variables con las que se juega con discretas. Hay variables que se crean, llamadas betas, por lo que la funciòn toma la forma:
+
+F(x) = ŷ = B_0 + Sum(B_i*x_i) sobre todos los i en N 
+
+
+Coeficiente de correlaciòn. Es la r. Es el valor de relaciòn entre dos variables. Este valor oscila entre -1 y 1. Mientras màs cercano al 1, mayor correlaciòn entre las variables.
+
+
+
+
+************************************************Regresiòn Logistica************************************************ 
+
+La regresiòn logistica es para cuando la variable objetivo es discreta, mientras que las variables con las que se juega con continuas. El objetivo es crear una variable binaria (Es decir que haya de dos sopas) 
+
+
+
+
+
+
+
+
+
+
+Lo que se quiere es que la R sea lo màs alto posible, sin embargo, no existe el modelo perfecto
+
+
+Hay que tener cuidado con los corchetes, ya que cuando se hace con dos, python tiene claro que es una matriz
+
+Intercepto es Beta 0, 
+Coeficiente es Beta 1
+Score es la R cuadrada
+lr.score(df[[var_i,var_i+1,...,var_n]],df[var_objetivo])
+
+
+El saber la teorìa te da derecho a usarla en la pràctica
+
+Regresiòn multivariada
+
+Para hacer una regresiòn lineal de cualquier tipo, las variables deben cumplir:
+
+1. Se debe distribuir de manera normal 
+2. Homocedasticidad (varianza constante)
+3. Sospecha de relaciòn lineal entre las variables
+
+Despuès del score, hay que probar el modelo
+
+
+Principio del buen orden (Index)
+
+
+Promedio de la media de puntos
+
+
+
+Regresion logistica para variable Discreta
+Las betas se calculan por el mètodo por el mètodo de màxima verosimilitud
+
+
+------------------------------------------------------------------
+12 de octubre
+
+Credit Scoring
+Transformaciòn de probabilidades en escalas
+Es algo similar a un semaforo en BAZ
+Mayor puntaje => Menor probabilidad de evento
+
+****************************Se debe converger hacia variables continuas****************************
+
+
+Cada variable tiene un puntuje, pero con la tècnica, se aplican las medidas
+
+
+WOE = LN(P(no evento)/ P(evento))
+Es una matriz /*Sorry, no he llegado a estudiar ésta parte*/
+
+
+
+
+Information Value
+IV = suma en los atributos(   (P(No evento) - P(Evento)) * WOE )
+
+¿Como se particionan las variables discretas?
+
+
+
+
+Las particiones deberìan ser monotonas y crecientes/decrecientes
+
+El tamaño ideal, serìa alrededor de 5% (regla de dedo)
+
+
+De las variables continuas se hacen variables discretizadas -> IV
+Variables continuas -> WOE
+
+
+Del wob se hace la aplicaciòn matematica (Betas)
+De las betas se hacen los puntos a cada atributo
+
+
+
+Alfa es el intercepto
+----------------------------------------------------------------------------------------
+
+17 de octubre
+
+
+-----------------LARS -> Least Anggle Regressiion
+
+Proceso iterativo que Selecciona la vareiable smpas correlacionada con la variable objetvivo, y se hará cpm todas las variables y me quiedo con el angulo minimo
+
+Parsimonia -> Quitar variables basura
+
+No permite coheficientes de 0
+
+forward stepwise -> es hacer la prueba una por una y se compara inmediatamente con el anterior. Conjunto activo, las variables que están participando. Cada variable tendrá un peso y se terminará de iterar hasta que todas las variables estén en el modelo. Tambièn se termina con el ajuste de mínimos cuadrados.
+
+------------------Regresión de cresta***********************
+Estudiar a fondo, me suena a un estimador asintotamente insesgado
+
+
+La regularización nos ayuda a evitar el sobreajuste
+
+El sobreajuste no acepta nuevos datos.
+Penaliza la pendiente, con el error al cuadrado
+
+Permite coheficientes de 0
+------------------Regresión Lasso (Lazo)
+Regularización
+
+Permite coheficientes de 0
+Penaliza la pendiente, con el error absoluto
+
+
+------------------Regresión Elástica (Red Elástica)*****************************************************
+Lo mejor de dos mundos
+generaliza minimos cuadrados, rich y lazzo
+
+Solo es bueno cuando existe correlación entre los parámetros
+
+
+--------------------------------------------
+lambda 1 | lambda 2 => Tipo de regresion 
+--------------------------------------------
+  < 0	 |    < 0  => Elastica
+--------------------------------------------
+   0	 |    < 0  => Ride Regression. Se castiga la pendiente por el valor absoluto de las betas
+--------------------------------------------
+< 0	 |    0	    => Lazzo Regression. Se castiga la pendiente por la labda por elevar al cuadrado las betas
+--------------------------------------------
+0	 |   0	    => Minimos cuadrados (regresión lineal)
+--------------------------------------------
+  	 
+
+
+
+------------------Regresiòn bayesiana
+El objetivo es no encontrar el único mejor valor de l0s parametros del modelo, sino màs bien determinar la distribuciòn posterior de los parametros del modelo
+
+
+
+
+----------------------------------------------------------------------------------------
+
+19 de octubre
+Gradiente Estocástico Descendiente
+
+
+Función de perdida. Es el costo del aprendizaje, es decir reducir la B_i.
+
+La perdida  es un número que indica que tan incorrtevta fue la predicción del modelo en un solo ejemplo. El objetivo de entrenar un modelo es encontrar un conjunto de estimaciones en promedio, tengan pérdidas bajas en todpos los ejemplo. Se representa como L2.
+
+Gradiente Descendiente.Derivadas. El intercepto (B_0) tomarà valores aleatorios para acercarnos a los valores graficados. Se suele empezar con B_0 = 0 y generealmente se termina en mil iteraciones
+
+
+Intercepto es B_0.
+Algoritmo:
+
+
+Learning Rate es: Es el valor que pondera el cambio de la derivada parcial de la B_i
+
+
+Gradiente Estocástico Descendiente. Muestreo Aleatorio. En cada iteración se toma nueva muestra. 
+A los conjuntos de dayos genreados por iteración, se les conoce cmo mini-batch
+
+
+Parametros e hiperparametros
+
+Parametros es aquel que el parametro aprende, es decir, las betas en las regresiones.
+
+Los hiperparametros son parametros que se fijan, es decir, son valores hardcoreados, ejemplo, es lamda de ridge regression, nùmero de entrenamientos, iteraciones. Jugar con los hiperparametros se le llama espacio paramétrico.
+
+Busqueda exhaustiva(Grid Search) es el proceso de reakuzar yb ahysre de hiper parametros para determinar los valores óptimos para un modelo dado. Esto es mediante cross-validation, ya que busca en todo el espacio de paramteros de forma iterativa, la combinación que arroje el mejor ajuste del modelo en cuestión. 
+
+Otra manera es por busqueda aleatoria, donde tal vez o lleguemos a un valor muy aproximado al óptimo, esto es como una distribución normal o con una uniforme.
+
+Ventajas y desventajas.
+
+Ventajas:
+* Mejora los ajuste de los modelos
+* La interpretaciòn de los modelos queda pràcticamente intacta.
+
+
+Desventaja:
+* Voracidad en los parametros
+
+
+
+
+
+
+-----------------------------------------------------------
+26 de octubre
+
+Analisis discriminante -> lda. Màximiza la separavilidad de las categiruas byuscada. Atravez de las media
+Sirve para la clasificación. 
+
+
+Regresesión cresta kernel
+
+El truco del kernel es: Lo lleva de 2d a nd
+
+
+-----------------------------------
+07 de noviembre
+
+Estudiar:
+	Roc (àrea bajo la curva), Acuracci, Mean Percentil (MAPE ó PEMA) es en promedio cuanto se va a alejando, R2
+
+
+Regresiòn lineal. Se busca encontrar una recta del estilo: alpha + sum(Beta_i*Xi)
+Beta_i es minimo cuadrados
+
+RSS Error cuadrado = sum (Y - y_hat)
+
+
+
+Regresión logistica.- Trattar de llevar una variable lineal a una binaria.
+
+
+Arboles de desiciòn
+
+
+
+--------------------------------------------------------------------------------------------------------------
+14 de noviembre
+Ensamblador, poda de arboles
+
+
+
+--------------------------------------------------------------------------------------------------------------
+16 de noviembre
+Redes neuronales artificiales (ANN)
+
+Es un modelo matematcico, que se se asemeja a la red neuronal cerebral.
+
+Estructura:
+MLP màs simple:
+
+	Entrada: Contiene una neurona por caeda variables de entrada y no cuenta con pesos
+	Oculta:  Con neirinas intermedias que (por defecto)
+
+ 
+
+Estructura:
+Forwad propagation, ES el proceso de alimentar la red neiroanl con un conejunto de en
+
+
+
+
+--------------------------------------------------------------------------------------------------------------
+Resumen
+
+Lo que en verdad decide si un modelo sirve o no es la  y gorro
+ỹ = f(X)
+
+Roc
+Clasificaciòn. Àrea bajo la curva. Mientras mayir àrea, mejor modeo
+Casos binarios
+¿Que tan bueno es?
+
+
+r2. 
+Se ocupam para la Regresión. = 1 -  ( ()  / () )
+Entre màs cercano a 1, mejor
+Multiclase
+¿Que tan bueno es?
+
+
+pema
+Regresiòn. (abs(Y_i - y_estimado_i)/y_i)
+¿Que tan malo es?
+
+acuracy
+Clasificaciòn.   
+
+
+
+
+
+Regresiòn lineal simple.
+y_Estimado =  B_0 +  sum(B_iX_i  )
+Se estima una recta, a partir de las betas calculadas
+La variable estimada es de tipo continua
+
+Regresiòn logistica
+Variables objetivo es de tipo descreta
+Bo
+1/ (1+(1/e(B_0 +sum(B_iXi)))                                                                  )
+La sbetas sion por minimo s cuadrados
+
+
+Regresion lars
+Least angle regression
+estimas las betas castigando el angulo
+
+
+Lasso (L1)
+Castiga mediante valor absoluto
+
+
+Ridge (L2)
+Penaliza la pendiente por medio
+
+
+Elstic 
+Genralizaciòn de Ridge, lasso y regresión lineal  	 
+EN
+
+Bayes
+
+GSD.
+
+analisis discriminante (LDA)
+Reduce dimensiones para maximizar la separabiulidad.
+
+Regresion creta kernel
+Kernel Llevar un conjuntod e espacio n  a un espacio igual o mayor
+
+
+Suport vector machine (SVM)
+
+
+k-vecinos cercanos(KNN)
+Con cuantos vecinos voy a analizar
+
+Bayes ingenuo
+
+
+
+Arboles de desiciòn
+
+Redes neuronales arificiales (ANN)
+
+
+Ensamble. Bosque Aleatorio (diferencia entre baggin boosting)
+
+Adaptive boosting. Trata de segmentar un conjunto de acciones a taves de predictores debiles
+
+
+Gb. rading boosting. Agrega arboles y agrega el fradiente.
+
+Clasificador Botante (Voting    Hard voting (MOda) vs Softvitung(Promedio de las probabilidades)
+
+XGB. Mejora que al clasificador botante.
+
+
+
+
+
+
+
+
+
+
+
+
+Estabilida de la poblaciòn
+Pruebas de bonda y ajuste:
+
+
+PSI < .1 Estable
+	.1 <= ps <= .25 Monitoreo
+	>.25 Alerta
+
+Desempeño del poder predictivo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
